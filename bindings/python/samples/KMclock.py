@@ -2,7 +2,6 @@
 from samplebase import SampleBase
 from rgbmatrix import graphics
 import time
-import socketio
 
 
 class GraphicsTest(SampleBase):
@@ -26,7 +25,7 @@ class GraphicsTest(SampleBase):
                 graphics.DrawLine(canvas, 0, i, 63, i, green)
             
 
-            graphics.DrawText(canvas, font, 2, 15, white, "TEST")
+            graphics.DrawText(canvas, font, 2, 30, white, "ABCDEF")
         time.sleep(10)   # show display for 10 seconds before exit
 
 
