@@ -48,7 +48,7 @@ class GraphicsTest(SampleBase):
             
             for i in range(96):
                 graphics.DrawLine(canvas, 0, i, 191, i, clock_color_output)
-            graphics.DrawText(canvas, font1, 25, 15, text_color, str(clock_time))
+            graphics.DrawText(canvas, font1, 25, 15, text_color, str(clock_state['time1']))
             graphics.DrawText(canvas, font2, 25, 28, text_color, clock_line_text)    
             time.sleep(0.5)   # show display for 10 seconds before exit  
 
@@ -74,6 +74,7 @@ def clock_server_connection():
 
     @sio.on('timeMessage')
     def on_message(time1, light1, time2, light2, beacon, numbers, whoShoots, beep, led):
+        print(time1)
         new_state = {"time1": time1,
                     "light1": light1,
                     "time2": time2,
