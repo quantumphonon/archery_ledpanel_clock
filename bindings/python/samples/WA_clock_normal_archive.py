@@ -16,15 +16,17 @@ class GraphicsTest(SampleBase):
         global clock_color
         canvas = self.matrix
         font1 = graphics.Font()
-        font1.LoadFont("../../../fonts/10x20.bdf")
+        font1.LoadFont("fonts/font_1rows.bdf")
         font2 = graphics.Font()
-        font2.LoadFont("../../../fonts/7x13.bdf")
-        green = graphics.Color(0, 255, 0)
+        font2.LoadFont("fonts/font_2rows.bdf")
+        font3 = graphics.Font()
+        font3.LoadFont("fonts/font_3rows.bdf")
+        green = graphics.Color(0, 140, 0)
         red = graphics.Color(255, 0, 0)
         yellow = graphics.Color(255, 255, 0)
         white = graphics.Color(255, 255, 255)
         black = graphics.Color(0,0,0)
-        
+
         while True:
             clock_state = state_queqe.get()
 
@@ -34,7 +36,7 @@ class GraphicsTest(SampleBase):
                 clock_line_text = 'AB'
             else:
                 clock_line_text = ''
-                
+
             if clock_state['light1'] == 3:
                 clock_color_output = green
                 text_color = white
@@ -44,13 +46,21 @@ class GraphicsTest(SampleBase):
             else:
                 clock_color_output = red
                 text_color = white
-                
-            
+
+
             for i in range(96):
                 graphics.DrawLine(canvas, 0, i, 191, i, clock_color_output)
-            graphics.DrawText(canvas, font1, 25, 15, text_color, str(clock_state['time1']))
-            graphics.DrawText(canvas, font2, 25, 28, text_color, clock_line_text)    
-            time.sleep(0.5)   # show display for 10 seconds before exit  
+
+            if len(clock_line_text)>0:
+                font_time = font2
+                time_location = 62
+                shift_per_letter = 26
+                graphics.DrawText(canvas, font1, 66, 94, text_color, clock_line_text)
+            else:
+                font_time = font3
+                time_location = 80
+                shift_per_letter = 30
+            graphics.DrawText(canvas, font_time, 96-int(len(str(clock_state['time1']))*shift_per_letter), time_location, text_color, str(clock_state['time1']))
 
 def graphics_test():
     draw_test = GraphicsTest()
@@ -59,9 +69,9 @@ def graphics_test():
 
 
 def clock_server_connection():
-    #horn_controller = serial.Serial('/dev/ttyUSB0')
-
+    horn_controller = serial.Serial('/dev/ttyACM0')
     sio = socketio.Client()
+
     @sio.event
     def connect():
         print('connection established')
@@ -70,11 +80,11 @@ def clock_server_connection():
     def on_messege(soundfile, outoftime):
         print('soundfile:', soundfile)
         print('outoftime:', outoftime)
-        #horn_controller.write(str(soundfile).encode())
+        time_string = f"{soundfile} 60000\n".encode()
+        horn_controller.write(time_string)
 
     @sio.on('timeMessage')
     def on_message(time1, light1, time2, light2, beacon, numbers, whoShoots, beep, led):
-        print(time1)
         new_state = {"time1": time1,
                     "light1": light1,
                     "time2": time2,
@@ -89,8 +99,8 @@ def clock_server_connection():
     @sio.event
     def disconnect():
         print('disconnected from server')
-        
-    sio.connect('http://192.168.0.101:5001')
+
+    sio.connect('http://192.168.0.11:5001')
     sio.wait()
 """
 #
@@ -117,6 +127,3 @@ if __name__ == "__main__":
     t2.start()
     t1.join()
     t2.join()
-
-
-    
