@@ -16,9 +16,6 @@ while True:
     read_data = sys.stdin.readline().strip()
     
     beeps = int(read_data[0])
-    if len(read_data)>1:
-        pwm_value = int(read_data[2:])
-        led_pwm.duty_u16(pwm_value)
     for i in range(beeps):
         led.toggle()
         led2.toggle()

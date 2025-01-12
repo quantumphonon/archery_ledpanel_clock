@@ -11,3 +11,6 @@ led_brightness = 5
 led_slowdown_gpio = 4
 led_multiplexing = 1
 led_pixel_mapper = "Mirror:H"
+
+
+pico_serial_port = '/dev/ttyACM0'
