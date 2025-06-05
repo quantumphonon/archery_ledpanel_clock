@@ -18,7 +18,7 @@ config = configparser.ConfigParser()
 config.read('clockconfig.ini')
 
 # pico connection
-horn_controller = serial.Serial('/dev/serial/by-path/platform-fd500000.pcie-pci-0000:01:00.0-usb-0:1.3:1.0')
+horn_controller = serial.Serial(config['Horn']['serial_port'])
 
 # screen parameters
 size = (int(config['Display']['clocksize_y']), int(config['Display']['clocksize_x']))
@@ -94,7 +94,7 @@ def read_time_signal():
 
 def read_scores():
     while True:
-        response = requests.get('http://localhost/Modules/Custom/IanseoGrafikiVideo/IanseoPresentationLED_json.php')
+        response = requests.get('http://' + config['ClockSystem']['ip_clock'] + '/Modules/Custom/IanseoGrafikiVideo/IanseoPresentationLED_json.php')
         if response.status_code == 500:
             scores = {'live': 0}
         else:
