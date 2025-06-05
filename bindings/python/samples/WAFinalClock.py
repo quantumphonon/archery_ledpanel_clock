@@ -10,6 +10,7 @@ import time
 import configparser
 import queue
 import requests
+import threading
 
 q = queue.Queue()
 
@@ -42,6 +43,16 @@ options.pwm_lsb_nanoseconds = 130
 options.pwm_bits = 11
 matrix = RGBMatrix(options = options)
 
+def main():
+    t1=threading.Thread(target=final_display)
+    t2=threading.Thread(target=read_time_signal)
+    t3=threading.Thread(target=read_scores)
+    t1.start()
+    t2.start()
+    t3.start()
+    t1.join()
+    t2.join()
+    t3.join()
 
 def final_display():
     final_clock = finaloutput.ClockForFinals(parameters.screen_width, parameters.screen_height, matrix, config['Display']['clock_id'])
@@ -92,3 +103,7 @@ def read_scores():
         q.put({'datatype': 'score',
             'data': scores})
         time.sleep(1)
+
+
+if __name__ == "__main__":
+    main()
