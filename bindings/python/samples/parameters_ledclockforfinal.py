@@ -7,7 +7,7 @@ red = (255, 0, 0)
 green = (0, 127, 0)
 yellow = (0, 200, 200)
 white = (255, 255, 255)
-black = (10, 10, 10)
+black = (0, 0, 0)
 
 # screen size
 screen_height = 32*3
