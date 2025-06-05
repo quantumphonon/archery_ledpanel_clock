@@ -47,7 +47,7 @@ def main():
     matrix.SetImage(default_image.convert('RGB'))
 
     # pico connection
-    horn_controller = serial.Serial('/dev/serial/by-path/platform-fd500000.pcie-pci-0000:01:00.0-usb-0:1.3:1.0')
+    horn_controller = serial.Serial(config['Horn']['serial_port'])
 
     current_clock_state = ClockState()
     print(current_clock_state.last_update_time)
