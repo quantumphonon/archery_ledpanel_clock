@@ -24,7 +24,8 @@ class ClockForFinals():
         self.image.paste(right_time_image, (self.width-self.height, 0))
         self.time = time_data
         black_bar = Image.fromarray(numpy.full((96, 4, 3), parameters.black, dtype=numpy.uint8))
-        self.image.paste(black_bar, (0, 0))
+        if(self.clock_id % 2 == 1):
+            self.image.paste(black_bar, (0, 0))
         self.matrix.SetImage(self.image.crop(((self.clock_id-1)*192,0,self.clock_id*192,95)).convert('RGB'))
 
     def update_scores(self, scores):
@@ -32,7 +33,8 @@ class ClockForFinals():
         self.image.paste(scores_image, (self.height, 0))
         self.score = scores
         black_bar = Image.fromarray(numpy.full((96, 4, 3), parameters.black, dtype=numpy.uint8))
-        self.image.paste(black_bar, (0, 0))
+        if(self.clock_id % 2 == 1):
+            self.image.paste(black_bar, (0, 0))
         self.matrix.SetImage(self.image.crop(((self.clock_id-1)*192,0,self.clock_id*192,95)).convert('RGB'))
 
 def light_signal_to_color(light_signal):
