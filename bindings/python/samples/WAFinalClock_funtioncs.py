@@ -62,8 +62,8 @@ def generate_time_image(size, time, light_signal):
 
 def generate_score_image(height, width, scores):
     scores_image = Image.fromarray(numpy.full((height, width, 3), parameters.blue, dtype=numpy.uint8))
-    separation_bar = Image.fromarray(numpy.full((height, 4, 3), parameters.black, dtype=numpy.uint8))
-    scores_image.paste(separation_bar, (int(width/2-2),0))
+    # separation_bar = Image.fromarray(numpy.full((height, 4, 3), parameters.black, dtype=numpy.uint8))
+    # scores_image.paste(separation_bar, (int(width/2-2),0))
     if not scores['live']:
         return scores_image
     names_to_display  = reduce_team_name_size(scores['archer'], scores['team'])
