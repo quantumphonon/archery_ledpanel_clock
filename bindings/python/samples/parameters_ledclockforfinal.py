@@ -2,12 +2,12 @@ from PIL import ImageFont, ImageDraw, Image
 
 # definition of parameters
 # colors for display
-blue = (255, 0, 0)
-red = (0, 0, 255)
+blue = (0, 0, 255)
+red = (255, 0, 0)
 green = (0, 127, 0)
-yellow = (0, 255, 255)
+yellow = (0, 200, 200)
 white = (255, 255, 255)
-black = (0, 0, 0)
+black = (10, 10, 10)
 
 # screen size
 screen_height = 32*3

@@ -23,13 +23,13 @@ class ClockForFinals():
         right_time_image = finaloutput.generate_time_image(self.height, time_data['time2'], time_data['light2'])
         self.image.paste(right_time_image, (self.width-self.height, 0))
         self.time = time_data
-        self.matrix.SetImage(self.image.crop(((self.clock_id-1)*192,0,self.clock_id*192-1,95)).convert('RGB'))
+        self.matrix.SetImage(self.image.crop(((self.clock_id-1)*192,0,self.clock_id*192,95)).convert('RGB'))
 
     def update_scores(self, scores):
         scores_image = finaloutput.generate_score_image(self.height, self.width-2*self.height, scores)
         self.image.paste(scores_image, (self.height, 0))
         self.score = scores
-        self.matrix.SetImage(self.image.crop(((self.clock_id-1)*192,0,self.clock_id*192-1,95)).convert('RGB'))
+        self.matrix.SetImage(self.image.crop(((self.clock_id-1)*192,0,self.clock_id*192,95)).convert('RGB'))
 
 def light_signal_to_color(light_signal):
     match light_signal:
