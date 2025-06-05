@@ -15,7 +15,7 @@ class ClockForFinals():
                     }
         self.score = {"live": 0}
         self.matrix = matrix
-        self.clock_id = clock_id
+        self.clock_id = int(clock_id)
 
     def update_timing(self, time_data):
         left_time_image = finaloutput.generate_time_image(self.height, time_data['time1'], time_data['light1'])
